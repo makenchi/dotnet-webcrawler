@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "ktdEtcaRCHud81T5XrqcONDwOwpgYg6C9lysFpnIvgg=",
+  "Source": "DotnetCrawlerAPI",
+  "BasePath": "_content/DotnetCrawlerAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
