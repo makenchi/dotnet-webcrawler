@@ -1,6 +1,9 @@
-﻿namespace DotnetCrawlerAPI.Services.Interfaces
+﻿using DotnetCrawlerAPI.DTO;
+
+namespace DotnetCrawlerAPI.Services.Interfaces
 {
     public interface IWebCrawlerService
     {
+        Task<List<ProductDTO>> SearchProducts(string searchOrigin, string query);
     }
 }
