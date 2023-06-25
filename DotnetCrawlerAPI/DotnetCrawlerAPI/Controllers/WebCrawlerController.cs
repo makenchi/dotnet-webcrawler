@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace DotnetCrawlerAPI.Controllers
 {
     [ApiController]
-    [Route("api/v1/webcrawl")]
+    [Route("api/v1")]
     public class WebCrawlerController : ControllerBase
     {
-        [HttpGet("{searchOrigin}")]
-        public IEnumerable<string> SearchItens(string searchOrigin)
+        [HttpGet("webcrawl")]
+        public IEnumerable<string> SearchItens(string searchOrigin, string query)
         {
             return Enumerable.Empty<string>();
         }
