@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "CgT6Ztfaq3Ai00bJskz7ULv2GT4KNn9dr5kNP3V2TFyvw0azW5ZEXwu/zkZa4/LZeT8yZOlt8zc+CXi1dTpmpQ==",
+  "dgSpecHash": "MXKDWrVDb/6SuJv36SelqyiHYoyRIFtrvIZwi7TJ/ZIVcpOJmd6TATPg35gi8tu0V6OevmtI/QG4xbpJlTh5DQ==",
   "success": true,
   "projectFilePath": "F:\\Makenchi's Dungeon\\Projetos\\GitHub\\dotnet-webcrawler\\DotnetCrawlerAPI\\DotnetCrawlerAPI\\DotnetCrawlerAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Makenchi\\.nuget\\packages\\htmlagilitypack\\1.11.48\\htmlagilitypack.1.11.48.nupkg.sha512",
     "C:\\Users\\Makenchi\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Makenchi\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Makenchi\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
