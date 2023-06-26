@@ -37,17 +37,19 @@ namespace DotnetCrawlerAPI.Services
             //https://www.kabum.com.br/busca/ps4
 
             var container = page.DocumentNode.SelectSingleNode("//main");
-            var nodes = container.SelectNodes("//div[contains(@class,'productCard')]");
+            var nodes = container.SelectNodes("div[contains(@class,'productCard')]");
 
             foreach (var node in nodes)
             {
                 //TODO: corrigir o xpath dos nodes, ele não está pegando  os valores corretos
-                var productCard = node.SelectSingleNode("//a[contains(@class,'productLink')]");
+                var productCard = node.SelectSingleNode("a[contains(@class,'productLink')]");
                 var productSlug = productCard.Attributes["href"].Value;
-                var productImage = productCard.SelectSingleNode("//img[@class='imageCard']").Attributes["src"].Value;
-                var productName = productCard.SelectSingleNode("//img[@class='imageCard']").Attributes["title"].Value;
-                var productPrice = productCard.SelectSingleNode("//div[contains(@class,'availablePricesCard')]")
-                    .SelectSingleNode("//span[contains(@class,'priceCard')]")
+                var productImage = productCard.SelectSingleNode("img[@class='imageCard']").Attributes["src"].Value;
+                var productName = productCard.SelectSingleNode("img[@class='imageCard']").Attributes["title"].Value;
+                //[contains(@class,'availablePricesCard')]
+                var productPrice = productCard.SelectSingleNode("div")
+                    .SelectSingleNode("div[contains(@class,'availablePricesCard')]")
+                    .SelectSingleNode("span[contains(@class,'priceCard')]")
                     .InnerHtml;
 
                 products.Add(new Product
