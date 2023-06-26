@@ -109,9 +109,8 @@ namespace DotnetCrawlerAPI.Services
             HtmlDocument doc = new HtmlDocument();
             using (WebClient client = new WebClient())
             {
-                client.Headers.Add("User-Agent: Other");
+                client.Headers.Add("User-Agent: Mozilla / 5.0(compatible; http://example.org/)");
                 string origin = client.DownloadString(searchOrigin);
-
                 var htmlDoc = new HtmlDocument();
                 htmlDoc.LoadHtml(origin);
 
