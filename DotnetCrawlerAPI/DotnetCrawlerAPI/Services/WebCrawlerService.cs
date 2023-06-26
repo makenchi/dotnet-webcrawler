@@ -12,7 +12,7 @@ namespace DotnetCrawlerAPI.Services
         {
             var products = getProducts(searchOrigin, query);
 
-            return new NotImplementedException;
+            throw new NotImplementedException();
         }
 
         private List<Comment> getComments(string productUrl)
