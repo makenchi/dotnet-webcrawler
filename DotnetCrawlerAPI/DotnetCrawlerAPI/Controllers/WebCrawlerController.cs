@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DotnetCrawlerAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetCrawlerAPI.Controllers
@@ -7,10 +8,17 @@ namespace DotnetCrawlerAPI.Controllers
     [Route("api/v1")]
     public class WebCrawlerController : ControllerBase
     {
-        [HttpGet("webcrawl")]
-        public IEnumerable<string> SearchItens(string searchOrigin, string query)
+        private readonly IWebCrawlerService _webCrawlerService;
+
+        public WebCrawlerController(IWebCrawlerService webCrawlerService)
         {
-            return Enumerable.Empty<string>();
+            _webCrawlerService = webCrawlerService;
+        }
+
+        [HttpGet("webcrawl")]
+        public async IEnumerable<string> SearchItens(string searchOrigin, string query)
+        {
+            return Ok(await _webCrawlerService.SearchProducts(searchOrigin,query));
         }
     }
 }
