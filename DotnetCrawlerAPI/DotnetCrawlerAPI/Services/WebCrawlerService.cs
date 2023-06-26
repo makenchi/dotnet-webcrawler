@@ -24,6 +24,16 @@ namespace DotnetCrawlerAPI.Services
         {
             HtmlDocument page = crawle(string.Format("{0}{1}",searchOrigin,query));
 
+            //https://www.kabum.com.br/busca/ps4
+
+            var container = page.DocumentNode.SelectSingleNode("//main");
+            var nodes = container.SelectNodes("//div[contains(@class,'productCard')]");
+
+            foreach (var node in nodes)
+            {
+
+            }
+
             return new List<Product>();
         }
 
