@@ -1,4 +1,5 @@
-﻿using DotnetCrawlerAPI.Services.Interfaces;
+﻿using DotnetCrawlerAPI.DTO;
+using DotnetCrawlerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ namespace DotnetCrawlerAPI.Controllers
         }
 
         [HttpGet("webcrawl")]
-        public async IEnumerable<string> SearchItens(string searchOrigin, string query)
+        public Task<List<ProductDTO>> SearchItens(string searchOrigin, string query)
         {
-            return Ok(await _webCrawlerService.SearchProducts(searchOrigin,query));
+            return _webCrawlerService.SearchProducts(searchOrigin, query);
         }
     }
 }

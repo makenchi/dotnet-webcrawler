@@ -8,11 +8,11 @@ namespace DotnetCrawlerAPI.Services
 {
     public class WebCrawlerService : IWebCrawlerService
     {
-        public async Task<List<ProductDTO>> SearchProducts(string searchOrigin, string query)
+        public Task<List<ProductDTO>> SearchProducts(string searchOrigin, string query)
         {
             var products = getProducts(searchOrigin, query);
 
-            throw new NotImplementedException();
+            return new NotImplementedException;
         }
 
         private List<Comment> getComments(string productUrl)
