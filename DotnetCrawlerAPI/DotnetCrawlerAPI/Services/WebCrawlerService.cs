@@ -15,18 +15,56 @@ namespace DotnetCrawlerAPI.Services
 
             foreach (var product in products)
             {
+                var comments = getComments(String.Format("{0}{1}", searchOrigin.Remove(searchOrigin.Length - 7), product.Slug), product.Id);
+
                 productsDto.Add(new ProductDTO
                 {
-                    Product = product
+                    Product = product,
+                    Comments = comments
                 });
             }
 
             return Task.FromResult(productsDto);
         }
 
-        private List<Comment> getComments(string productUrl)
+        private List<Comment> getComments(string productUrl,int productId)
         {
-            return new List<Comment>();
+            HtmlDocument page = crawle(productUrl);
+            var comments = new List<Comment>();
+            int commentId = 0;
+
+            var container = page.DocumentNode.SelectSingleNode("//div[@id='reviewsSection']");
+            if (container != null)
+            {
+                var nodes = container.SelectSingleNode("div").SelectNodes("div");
+
+                foreach (var node in nodes)
+                {
+                    if (commentId > 0) // pega a partir do segundo nó TODO: fazer uma logica melhor do q esse if
+                    {
+                        var commentCard = node.SelectNodes("div");
+                        var commentTitle = commentCard[0].SelectSingleNode("p").InnerText;
+                        var commentAuthor = node.SelectSingleNode("p").InnerText;
+                        var commentText = commentCard[1].SelectSingleNode("p").InnerText;
+
+                        comments.Add(new Comment
+                        {
+                            Id = commentId,
+                            Title = commentTitle,
+                            Author = commentAuthor,
+                            Text = commentText,
+                            ProductId = productId
+                        });
+                    }
+                    commentId++;
+                }
+
+                return new List<Comment>();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private List<Product> getProducts(string searchOrigin, string query)
@@ -40,13 +78,12 @@ namespace DotnetCrawlerAPI.Services
             var nodes = container.SelectNodes("div[contains(@class,'productCard')]");
 
             foreach (var node in nodes)
-            {
-                //TODO: corrigir o xpath dos nodes, ele não está pegando  os valores corretos
+            {                
                 var productCard = node.SelectSingleNode("a[contains(@class,'productLink')]");
                 var productSlug = productCard.Attributes["href"].Value;
                 var productImage = productCard.SelectSingleNode("img[@class='imageCard']").Attributes["src"].Value;
                 var productName = productCard.SelectSingleNode("img[@class='imageCard']").Attributes["title"].Value;
-                //[contains(@class,'availablePricesCard')]
+                
                 var productPrice = productCard.SelectSingleNode("div")
                     .SelectSingleNode("div[contains(@class,'availablePricesCard')]")
                     .SelectSingleNode("span[contains(@class,'priceCard')]")
