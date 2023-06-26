@@ -17,9 +17,9 @@ namespace DotnetCrawlerAPI.Controllers
         }
 
         [HttpGet("webcrawl")]
-        public Task<List<ProductDTO>> SearchItens(string searchOrigin, string query)
+        public async Task<List<ProductDTO>> SearchItens(string searchOrigin, string query)
         {
-            return _webCrawlerService.SearchProducts(searchOrigin, query);
+            return await _webCrawlerService.SearchProducts(searchOrigin, query);
         }
     }
 }

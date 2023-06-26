@@ -32,6 +32,7 @@ namespace DotnetCrawlerAPI.Services
             HtmlDocument doc = new HtmlDocument();
             using (WebClient client = new WebClient())
             {
+                client.Headers.Add("User-Agent: Other");
                 string origin = client.DownloadString(searchOrigin);
 
                 var htmlDoc = new HtmlDocument();
