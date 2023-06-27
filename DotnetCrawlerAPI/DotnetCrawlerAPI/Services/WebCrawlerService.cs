@@ -31,9 +31,6 @@ namespace DotnetCrawlerAPI.Services
 
         private async Task<List<Comment>> getComments(int productId)
         {
-            //TODO acessar o endpoint do comentario e pegar o json deles
-            //https://servicespub.prod.api.aws.grupokabum.com.br/opinioes/v2/opinioes/${productId}?limit=4
-            //102770
             var comments = new List<Comment>();
 
             var apiComments = await GetCommentsOnApi(productId.ToString());
