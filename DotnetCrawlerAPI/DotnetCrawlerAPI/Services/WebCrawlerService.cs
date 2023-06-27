@@ -10,14 +10,14 @@ namespace DotnetCrawlerAPI.Services
 {
     public class WebCrawlerService : IWebCrawlerService
     {
-        public Task<List<ProductDTO>> SearchProducts(string searchOrigin, string query)
+        public async Task<List<ProductDTO>> SearchProducts(string searchOrigin, string query)
         {
             List<ProductDTO> productsDto = new List<ProductDTO>();
             var products = getProducts(searchOrigin, query);
 
             foreach (var product in products)
             {
-                var comments = getComments(String.Format("{0}{1}", searchOrigin.Remove(searchOrigin.Length - 7), product.Slug), product.Id);
+                var comments = await getComments(product.Id);
 
                 productsDto.Add(new ProductDTO
                 {
@@ -26,50 +26,19 @@ namespace DotnetCrawlerAPI.Services
                 });
             }
 
-            return Task.FromResult(productsDto);
+            return await Task.FromResult(productsDto);
         }
 
-        private List<Comment> getComments(string productUrl,int productId)
+        private async Task<List<Comment>> getComments(int productId)
         {
             //TODO acessar o endpoint do comentario e pegar o json deles
             //https://servicespub.prod.api.aws.grupokabum.com.br/opinioes/v2/opinioes/${productId}?limit=4
             //102770
-            HtmlDocument page = crawle(productUrl);
             var comments = new List<Comment>();
-            int commentId = 0;
 
-            var container = page.DocumentNode.SelectSingleNode("//div[@id='reviewsSection']");
-            if (container != null)
-            {
-                var nodes = container.SelectSingleNode("div").SelectNodes("div");
+            var apiComments = await GetCommentsOnApi(productId.ToString());
 
-                foreach (var node in nodes)
-                {
-                    if (commentId > 0) // pega a partir do segundo nó TODO: fazer uma logica melhor do q esse if
-                    {
-                        var commentCard = node.SelectNodes("div");
-                        var commentTitle = commentCard[0].SelectSingleNode("p").InnerText;
-                        var commentAuthor = node.SelectSingleNode("p").InnerText;
-                        var commentText = commentCard[1].SelectSingleNode("p").InnerText;
-
-                        comments.Add(new Comment
-                        {
-                            Id = commentId,
-                            Title = commentTitle,
-                            Author = commentAuthor,
-                            Text = commentText,
-                            ProductId = productId
-                        });
-                    }
-                    commentId++;
-                }
-
-                return new List<Comment>();
-            }
-            else
-            {
-                return null;
-            }
+            return apiComments;
         }
 
         private List<Product> getProducts(string searchOrigin, string query)
@@ -128,6 +97,8 @@ namespace DotnetCrawlerAPI.Services
         {
             string url = string.Format("https://servicespub.prod.api.aws.grupokabum.com.br/opinioes/v2/opinioes/{0}?limit=5", productId);
             HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+
             List<Comment> comments = new List<Comment>();
 
             HttpResponseMessage response = await client.GetAsync(url);
@@ -136,8 +107,21 @@ namespace DotnetCrawlerAPI.Services
             {
                 string json = await response.Content.ReadAsStringAsync();
 
-                var objeto = JsonConvert.DeserializeObject(json);
-
+                dynamic commentsJson = JsonConvert.DeserializeObject(json);
+                if (commentsJson != null)
+                {
+                    foreach (var commentJson in commentsJson["opinioes"])
+                    {
+                        comments.Add(new Comment
+                        {
+                            Id = commentJson["codigo"],
+                            Title = commentJson["titulo"],
+                            Author = commentJson["cliente"]["nome"],
+                            Text = commentJson["opiniao"],
+                            ProductId = int.Parse(productId)
+                        });
+                    }
+                }
                 return comments;
             }
             else
