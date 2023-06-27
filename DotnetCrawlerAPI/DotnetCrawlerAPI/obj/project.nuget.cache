@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "MXKDWrVDb/6SuJv36SelqyiHYoyRIFtrvIZwi7TJ/ZIVcpOJmd6TATPg35gi8tu0V6OevmtI/QG4xbpJlTh5DQ==",
+  "dgSpecHash": "6wJPjFOg037l0Cvya7zxlTbod8jvDIFMSQExCpPXTC3IUAVDrmQxurp6b1+lqtscFgn7O0QHFckbcCP0xRVZwQ==",
   "success": true,
   "projectFilePath": "F:\\Makenchi's Dungeon\\Projetos\\GitHub\\dotnet-webcrawler\\DotnetCrawlerAPI\\DotnetCrawlerAPI\\DotnetCrawlerAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Makenchi\\.nuget\\packages\\htmlagilitypack\\1.11.48\\htmlagilitypack.1.11.48.nupkg.sha512",
     "C:\\Users\\Makenchi\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Makenchi\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Makenchi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Makenchi\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\Makenchi\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\Makenchi\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",

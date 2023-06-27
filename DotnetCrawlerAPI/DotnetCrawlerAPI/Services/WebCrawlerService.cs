@@ -2,7 +2,9 @@
 using DotnetCrawlerAPI.Entities;
 using DotnetCrawlerAPI.Services.Interfaces;
 using HtmlAgilityPack;
+using Newtonsoft.Json;
 using System.Net;
+using System.Net.Http;
 
 namespace DotnetCrawlerAPI.Services
 {
@@ -29,6 +31,9 @@ namespace DotnetCrawlerAPI.Services
 
         private List<Comment> getComments(string productUrl,int productId)
         {
+            //TODO acessar o endpoint do comentario e pegar o json deles
+            //https://servicespub.prod.api.aws.grupokabum.com.br/opinioes/v2/opinioes/${productId}?limit=4
+            //102770
             HtmlDocument page = crawle(productUrl);
             var comments = new List<Comment>();
             int commentId = 0;
@@ -80,6 +85,7 @@ namespace DotnetCrawlerAPI.Services
             foreach (var node in nodes)
             {                
                 var productCard = node.SelectSingleNode("a[contains(@class,'productLink')]");
+                productId = int.Parse(productCard.Attributes["data-smarthintproductid"].Value);
                 var productSlug = productCard.Attributes["href"].Value;
                 var productImage = productCard.SelectSingleNode("img[@class='imageCard']").Attributes["src"].Value;
                 var productName = productCard.SelectSingleNode("img[@class='imageCard']").Attributes["title"].Value;
@@ -97,8 +103,6 @@ namespace DotnetCrawlerAPI.Services
                     Slug = productSlug,
                     Price = productPrice
                 });
-
-                productId++;
             }
 
             return products;
@@ -118,6 +122,28 @@ namespace DotnetCrawlerAPI.Services
             }
 
             return doc;
+        }
+
+        private async Task<List<Comment>> GetCommentsOnApi(string productId)
+        {
+            string url = string.Format("https://servicespub.prod.api.aws.grupokabum.com.br/opinioes/v2/opinioes/{0}?limit=5", productId);
+            HttpClient client = new HttpClient();
+            List<Comment> comments = new List<Comment>();
+
+            HttpResponseMessage response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+
+                var objeto = JsonConvert.DeserializeObject(json);
+
+                return comments;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

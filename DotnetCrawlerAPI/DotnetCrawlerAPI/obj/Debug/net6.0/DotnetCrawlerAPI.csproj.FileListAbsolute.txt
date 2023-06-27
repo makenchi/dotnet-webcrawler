@@ -26,3 +26,4 @@ F:\Makenchi's Dungeon\Projetos\GitHub\dotnet-webcrawler\DotnetCrawlerAPI\DotnetC
 F:\Makenchi's Dungeon\Projetos\GitHub\dotnet-webcrawler\DotnetCrawlerAPI\DotnetCrawlerAPI\obj\Debug\net6.0\DotnetCrawlerAPI.genruntimeconfig.cache
 F:\Makenchi's Dungeon\Projetos\GitHub\dotnet-webcrawler\DotnetCrawlerAPI\DotnetCrawlerAPI\obj\Debug\net6.0\ref\DotnetCrawlerAPI.dll
 F:\Makenchi's Dungeon\Projetos\GitHub\dotnet-webcrawler\DotnetCrawlerAPI\DotnetCrawlerAPI\bin\Debug\net6.0\HtmlAgilityPack.dll
+F:\Makenchi's Dungeon\Projetos\GitHub\dotnet-webcrawler\DotnetCrawlerAPI\DotnetCrawlerAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
