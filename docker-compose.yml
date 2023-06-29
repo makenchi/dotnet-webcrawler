@@ -1,0 +1,12 @@
+version: '3'
+services:
+  crawler:
+    build:
+      context: ./DotnetCrawlerAPI/DotnetCrawlerAPI
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./DotnetCrawlerAPI/DotnetCrawlerAPI:/app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development

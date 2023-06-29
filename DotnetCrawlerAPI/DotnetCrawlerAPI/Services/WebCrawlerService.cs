@@ -10,10 +10,10 @@ namespace DotnetCrawlerAPI.Services
 {
     public class WebCrawlerService : IWebCrawlerService
     {
-        public async Task<List<ProductDTO>> SearchProducts(string searchOrigin, string query)
+        public async Task<List<ProductDTO>> SearchProducts(string query)
         {
             List<ProductDTO> productsDto = new List<ProductDTO>();
-            var products = getProducts(searchOrigin, query);
+            var products = getProducts(query);
 
             foreach (var product in products)
             {
@@ -38,9 +38,10 @@ namespace DotnetCrawlerAPI.Services
             return apiComments;
         }
 
-        private List<Product> getProducts(string searchOrigin, string query)
+        private List<Product> getProducts(string query)
         {
-            HtmlDocument page = crawle(string.Format("{0}{1}",searchOrigin,query));
+            
+            HtmlDocument page = crawle(string.Format("https://www.kabum.com.br/busca/{0}", query));
             List<Product> products = new List<Product>();
             int productId = 0;            
 
