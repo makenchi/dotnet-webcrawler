@@ -1,0 +1,11 @@
+# Base image
+FROM mcr.microsoft.com/dotnet/sdk:6.0.302 AS build-env
+
+WORKDIR /app
+COPY . ./
+
+# Expose the port
+EXPOSE 8000
+
+# Set the entry point for the application
+ENTRYPOINT ["dotnet", "watch", "run", "--urls", "http://0.0.0.0:8000"]
